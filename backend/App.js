@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+mongoose.set("strictQuery", true);
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const stageRoute = require("./routes/stages-routes");
+const etudiantRoute = require("./routes/etudiants-routes");
 
-export default App;
+const HttpErreur = require("./models/http-erreur");
+
+const app = express();
+
+app.use(bodyParser.json());
+
+app.use("/api/Stage", stageRoute);
+app.use("/api/Etudiant", etudiantRoute);
+
+app.use((requete, reponse, next) => {
+  return next(new HttpErreur("Route non trouvée", 404));
+});
+
+app.use((error, requete, reponse, next) => {
+  if (reponse.headerSent) {
+    return next(error);
+  }
+  reponse.status(error.code || 500);
+  reponse.json({
+    message: error.message || "Une erreur inconnue est survenue",
+  });
+});
+
+mongoose
+  .connect("mongodb://127.0.0.1:27017")
+  .then(() => {
+    app.listen(5000);
+    console.log("Connexion à la base de données réussie");
+  })
+  .catch((erreur) => {
+    console.log(erreur);
+  });
