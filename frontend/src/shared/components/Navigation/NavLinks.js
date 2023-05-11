@@ -11,29 +11,21 @@ const NavLinks = props => {
     <ul className="nav-links">
       <li>
         <NavLink to="/" exact>
-          Utilisateurs
+          Accueil
         </NavLink>
       </li>
-      {auth.isLoggedIn && (
-        <li>
-          <NavLink to={`/${auth.userId}/places`}>Mes places</NavLink>
-        </li>
-      )}
-      {auth.isLoggedIn && (
-        <li>
-          <NavLink to="/places/new">Ajouter place</NavLink>
-        </li>
-      )}
-      {!auth.isLoggedIn && (
-        <li>
-          <NavLink to="/auth">Connexion</NavLink>
-        </li>
-      )}
-      {auth.isLoggedIn && (
-        <li>
-          <button onClick={auth.logout}>Déconnexion</button>
-        </li>
-      )}
+      <li>
+        <NavLink to="/deroulement-enseignant">Déroulement Enseignant</NavLink>
+      </li>
+      <li>
+        <NavLink to="/deroulement-stagiaire">Déroulement stagiaire</NavLink>
+      </li>
+      <li>
+        <NavLink to="/faq">FAQ</NavLink>
+      </li>
+      <li>
+        <NavLink to="profil">Profil et compétences</NavLink>
+      </li>
     </ul>
   );
 };

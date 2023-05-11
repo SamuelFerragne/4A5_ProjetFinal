@@ -56,7 +56,7 @@ const NewPlace = () => {
       );
 
       console.log(reponseData);
-     // history.push("/");
+     history.push("/");
     } catch (err) {
       console.log(err);
     }

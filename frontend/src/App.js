@@ -6,11 +6,11 @@ import {
   Switch
 } from 'react-router-dom';
 
-import Users from './user/pages/Users';
-import NewPlace from './places/pages/NewPlace';
-import UserPlaces from './places/pages/UserPlaces';
-import UpdatePlace from './places/pages/UpdatePlace';
-import Auth from './user/pages/Auth';
+import Accueil from './accueil/pages/Accueil';
+import DeroulementEnseignant from './deroulement-enseignant/pages/DeroulementEnseignant';
+import DeroulementStagiaire from './deroulement-stagiaire/pages/DeroulementStagiaire';
+import Faq from './faq/pages/Faq';
+import Profil from './profil/pages/Profil';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
 import { AuthContext } from './shared/context/auth-context';
 
@@ -30,42 +30,55 @@ const App = () => {
 
   let routes;
 
-  if (isLoggedIn) {
+  /*if (isLoggedIn) {
     routes = (
       <Switch>
         <Route path="/" exact>
-          <Users />
+          <Accueil />
         </Route>
         <Route path="/:userId/places" exact>
-          <UserPlaces />
+          <DeroulementEnseignant />
         </Route>
         <Route path="/places/new" exact>
-          <NewPlace />
+          <DeroulementStagiaire />
         </Route>
         <Route path="/places/:placeId">
-          <UpdatePlace />
+          <Faq />
+        </Route>
+        <Route path="/places/:placeId">
+          <Faq />
         </Route>
         <Redirect to="/" />
       </Switch>
     );
-  } else {
-    routes = (
-      <Switch>
-        <Route path="/" exact>
-          <Users />
-        </Route>
-        <Route path="/:userId/places" exact>
-          <UserPlaces />
-        </Route>
-        <Route path="/auth">
-          <Auth />
-        </Route>
-        <Redirect to="/auth" />
-      </Switch>
-    );
-  }
+   else {*/
+   return (
+    <Router>
+      <MainNavigation />
+      <main>
+        <Switch>
+          <Route path="/" exact>
+            <Accueil />
+          </Route>
+          <Route path="/deroulement-enseignant" exact>
+            <DeroulementEnseignant/>
+          </Route>
+          <Route path="/deroulement-stagiaire" exact>
+            <DeroulementStagiaire/>
+          </Route>
+          <Route path="/faq" exact>
+            <Faq/>
+          </Route>
+          <Route path="/profil" exact>
+            <Profil/>
+          </Route>
+          <Redirect to="/" />
+        </Switch>
+      </main>
+    </Router>
+  );
 
-  return (
+  /*return (
     <AuthContext.Provider
       value={{ isLoggedIn: isLoggedIn, userId:userId, login: login, logout: logout }}
     >
@@ -74,7 +87,7 @@ const App = () => {
         <main>{routes}</main>
       </Router>
     </AuthContext.Provider>
-  );
+  );*/
 };
 
 export default App;
