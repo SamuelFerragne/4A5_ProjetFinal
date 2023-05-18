@@ -3,12 +3,12 @@ const express = require("express");
 const controllerEtudiant = require("../controllers/etudiants-controllers");
 const router = express.Router();
 
-router.get("/:etudiantId", controllerEtudiant.getCoursById);
+router.get("/:etudiantId", controllerEtudiant.getEtudiantById);
 
-router.post("/", controllerEtudiant.creerCours);
+router.post("/", controllerEtudiant.creerEtudiant);
 
-router.patch("/:etudiantId", controllerEtudiant.updateCours);
+router.patch("/:etudiantId", controllerEtudiant.updateEtudiant);
 
-router.delete("/:etudiantId", controllerEtudiant.supprimerCours);
+router.delete("/:etudiantId", controllerEtudiant.supprimerEtudiant);
 
 module.exports = router;
