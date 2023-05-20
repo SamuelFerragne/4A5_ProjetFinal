@@ -30,8 +30,7 @@ app.use((error, requete, reponse, next) => {
 });
 
 mongoose
-  .connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_NAME}.pveblex.mongodb.net/
-  `)
+  .connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_NAME}.pveblex.mongodb.net/?retryWrites=true&w=majority`)
   .then(() => {
     app.listen(5000);
     console.log("Connexion à la base de données réussie");
