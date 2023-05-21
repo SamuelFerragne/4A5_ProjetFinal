@@ -23,6 +23,7 @@ const creerStage = async (requete, reponse, next) => {
   const {
     nomContact,
     courrielContact,
+    telephoneContact,
     entreprise,
     adresse,
     type,
@@ -32,6 +33,7 @@ const creerStage = async (requete, reponse, next) => {
   const nouveauStage = new Stage({
     nomContact,
     courrielContact,
+    telephoneContact,
     entreprise,
     adresse,
     type,

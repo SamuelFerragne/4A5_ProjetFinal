@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const stageSchema = new Schema({
   nomContact: { type: String, required: true },
   courrielContact: { type: String, required: true },
+  telephoneContact: { type: String, required: true },
   entreprise: { type: String, required: true },
   adresse: { type: String, required: true },
   type: { type: String, required: true },
