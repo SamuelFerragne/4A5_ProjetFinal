@@ -32,20 +32,21 @@ const EtudiantItem = props => {
   };
 
   const confirmHandler = () => {
-    fetch(`https://projetstages.onrender.com/api/Etudiant/${props.DA}`, {
+    const dataToSend = {stage: selectedStage};
+    console.log("Data to send: ", dataToSend);
+    fetch(`https://projetstages.onrender.com/api/Etudiant/${props.id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        stages: selectedStage
-      })
+      body: JSON.stringify(dataToSend)
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => console.log("Response: ", data))
     .catch((error) => console.error('Error:', error));
     closeModalHandler();
-  };
+};
+
 
   const handleStageChange = (event) => {
     setSelectedStage(event.target.value);
