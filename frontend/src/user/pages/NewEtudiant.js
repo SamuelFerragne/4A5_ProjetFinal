@@ -56,13 +56,13 @@ const NewEtudiant = () => {
 
     try {
       const reponseData = await sendRequest(
-        process.env.REACT_APP_BACKEND_URL + "/etudiants",
+        "https://projetstages.onrender.com/api/Stage/",
         "POST",
         JSON.stringify({
-          DA: formState.inputs.nomContact.value,
-          nom: formState.inputs.description.value,
-          courriel: formState.inputs.address.value,
-          profil: formState.inputs.adresse.value
+          DA: formState.inputs.DA.value,
+          nom: formState.inputs.nom.value,
+          courriel: formState.inputs.courriel.value,
+          profil: formState.inputs.profil.value
         }),
         {
           "Content-Type": "application/json",
