@@ -1,7 +1,8 @@
 {
-	"env":{
-		"DB_USER": "1950570",
-		"DB_PASSWORD": "%&nc626*Xtre",
-		"DB_NAME": "Stages"
+	"env": {
+	  "DB_USER": "1950570",
+	  "DB_PASSWORD": "zo2LO2ndeYwBRVQ5",
+	  "DB_NAME": "stages"
 	}
-}
+  }
+  
