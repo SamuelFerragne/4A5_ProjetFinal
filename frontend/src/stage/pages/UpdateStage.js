@@ -14,11 +14,11 @@ import { useHttpClient } from '../../shared/hooks/http-hook';
 import { AuthContext } from '../../shared/context/auth-context';
 import './PlaceForm.css';
 
-const UpdatePlace = () => {
+const UpdateStage = () => {
   const auth = useContext(AuthContext);
   const {error, sendRequest, clearError } = useHttpClient();
-  const [loadedPlace, setLoadedPlace] = useState();
-  const placeId = useParams().placeId;
+  const [loadedStage, setLoadedStage] = useState();
+  const stageId = useParams().placeId;
   const history = useHistory();
 
   const [formState, inputHandler, setFormData] = useForm(
@@ -36,21 +36,21 @@ const UpdatePlace = () => {
   );
 
   useEffect(() => {
-    const fetchPlace = async () => {
+    const fetchStage = async () => {
       try {
         const responseData = await sendRequest(
-          process.env.REACT_APP_BACKEND_URL + `/places/${placeId}`
+          process.env.REACT_APP_BACKEND_URL + `/stages/${stageId}`
         );
-        setLoadedPlace(responseData.place);
-        console.log(responseData.place)
+        setLoadedStage(responseData.stage);
+        console.log(responseData.stage)
         setFormData(
           {
             title: {
-              value: responseData.place.titre,
+              value: responseData.stage.titre,
               isValid: true
             },
             description: {
-              value: responseData.place.description,
+              value: responseData.stage.description,
               isValid: true
             }
           },
@@ -59,14 +59,14 @@ const UpdatePlace = () => {
 
       } catch (err) {}
     };
-    fetchPlace();
-  }, [sendRequest, placeId, setFormData]);
+    fetchStage();
+  }, [sendRequest, stageId, setFormData]);
 
-  const placeUpdateSubmitHandler = async event => {
+  const stageUpdateSubmitHandler = async event => {
     event.preventDefault();
     try {
       await sendRequest(
-        process.env.REACT_APP_BACKEND_URL + `/places/${placeId}`,
+        process.env.REACT_APP_BACKEND_URL + `/stages/${stageId}`,
         'PATCH',
         JSON.stringify({
           titre: formState.inputs.title.value,
@@ -76,13 +76,13 @@ const UpdatePlace = () => {
           'Content-Type': 'application/json'
         }
       );
-      history.push('/' + auth.userId + '/places');
+      history.push('/' + auth.userId + '/stages');
     } catch (err) {}
   };
 
 
 
-  if (!loadedPlace && !error) {
+  if (!loadedStage && !error) {
     return (
       <div className="center">
         <Card>
@@ -95,17 +95,17 @@ const UpdatePlace = () => {
   return (
     <React.Fragment>
       <ErrorModal error={error} onClear={clearError} />
-      {loadedPlace && (
-        <form className="place-form" onSubmit={placeUpdateSubmitHandler}>
+      {loadedStage && (
+        <form className="stage-form" onSubmit={stageUpdateSubmitHandler}>
           <Input
-            id="title"
+            id="contact"
             element="input"
             type="text"
             label="Title"
             validators={[VALIDATOR_REQUIRE()]}
             errorText="Please enter a valid title."
             onInput={inputHandler}
-            initialValue={loadedPlace.titre}
+            initialValue={loadedStage.titre}
             initialValid={true}
           />
           <Input
@@ -115,11 +115,11 @@ const UpdatePlace = () => {
             validators={[VALIDATOR_MINLENGTH(5)]}
             errorText="Please enter a valid description (min. 5 characters)."
             onInput={inputHandler}
-            initialValue={loadedPlace.description}
+            initialValue={loadedStage.description}
             initialValid={true}
           />
           <Button type="submit" disabled={!formState.isValid}>
-            Mettre la place à jour
+            Mettre la stage à jour
           </Button>
         </form>
       )}
@@ -127,4 +127,4 @@ const UpdatePlace = () => {
   );
 };
 
-export default UpdatePlace;
+export default UpdateStage;

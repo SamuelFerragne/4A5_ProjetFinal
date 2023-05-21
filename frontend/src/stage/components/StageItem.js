@@ -7,9 +7,9 @@ import Map from '../../shared/components/UIElements/Map';
 import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 import { AuthContext } from '../../shared/context/auth-context';
 import { useHttpClient } from '../../shared/hooks/http-hook';
-import './PlaceItem.css';
+import './StageItem.css';
 
-const PlaceItem = props => {
+const StageItem = props => {
   const {error, sendRequest, clearError } = useHttpClient();
   const auth = useContext(AuthContext);
   const [showMap, setShowMap] = useState(false);
@@ -31,7 +31,7 @@ const PlaceItem = props => {
     setShowConfirmModal(false);
     try {
       await sendRequest(
-        process.env.REACT_APP_BACKEND_URL + `/places/${props.id}`,
+        process.env.REACT_APP_BACKEND_URL + `/stages/${props.id}`,
         'DELETE'
       );
       props.onDelete(props.id);
@@ -45,8 +45,8 @@ const PlaceItem = props => {
         show={showMap}
         onCancel={closeMapHandler}
         header={props.address}
-        contentClass="place-item__modal-content"
-        footerClass="place-item__modal-actions"
+        contentClass="stage-item__modal-content"
+        footerClass="stage-item__modal-actions"
         footer={<Button onClick={closeMapHandler}>CLOSE</Button>}
       >
         <div className="map-container">
@@ -57,7 +57,7 @@ const PlaceItem = props => {
         show={showConfirmModal}
         onCancel={cancelDeleteHandler}
         header="Are you sure?"
-        footerClass="place-item__modal-actions"
+        footerClass="stage-item__modal-actions"
         footer={
           <React.Fragment>
             <Button inverse onClick={cancelDeleteHandler}>
@@ -70,26 +70,26 @@ const PlaceItem = props => {
         }
       >
         <p>
-          Do you want to proceed and delete this place? Please note that it
+          Do you want to proceed and delete this stage? Please note that it
           can't be undone thereafter.
         </p>
       </Modal>
-      <li className="place-item">
-        <Card className="place-item__content">
-          <div className="place-item__image">
+      <li className="stage-item">
+        <Card className="stage-item__content">
+          <div className="stage-item__image">
             <img src={props.image} alt={props.title} />
           </div>
-          <div className="place-item__info">
+          <div className="stage-item__info">
             <h2>{props.title}</h2>
             <h3>{props.address}</h3>
             <p>{props.description}</p>
           </div>
-          <div className="place-item__actions">
+          <div className="stage-item__actions">
             <Button inverse onClick={openMapHandler}>
               Voir sur la carte
             </Button>
             {auth.isLoggedIn && (
-              <Button to={`/places/${props.id}`}>EDIT</Button>
+              <Button to={`/stages/${props.id}`}>EDIT</Button>
             )}
 
             {auth.isLoggedIn && (
@@ -104,4 +104,4 @@ const PlaceItem = props => {
   );
 };
 
-export default PlaceItem;
+export default StageItem;
