@@ -8,9 +8,13 @@ const EtudiantsList = props => {
   const [etudiants, setEtudiants] = useState([]);
 
   useEffect(() => {
-    fetch('https://projetstages.onrender.com/api/stage/') // Remplacez par votre URL d'API
+    fetch('https://projetstages.onrender.com/api/Etudiant')
       .then(response => response.json())
-      .then(data => setEtudiants(data));
+      .then(data => {
+        console.log(data); // Pour vérifier ce que vous obtenez de l'API
+        setEtudiants(data.etudiants); // Récupérer les étudiants du tableau 'etudiants'
+      })
+      .catch(error => console.error(error));
   }, []);
 
   if (!etudiants || etudiants.length === 0) {

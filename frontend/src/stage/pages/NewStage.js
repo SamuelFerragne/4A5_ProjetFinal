@@ -26,11 +26,15 @@ const NewStage = () => {
   };
   const [formState, inputHandler] = useForm(
     {
-      contact: {
+      nomcontact: {
         value: "",
         isValid: false,
       },
-      courriel: {
+      courrielContact: {
+        value: "",
+        isValid: false,
+      },
+      telephoneContact: {
         value: "",
         isValid: false,
       },
@@ -68,15 +72,16 @@ const NewStage = () => {
 
     try {
       const reponseData = await sendRequest(
-        process.env.REACT_APP_BACKEND_URL + "/stages",
+        'https://projetstages.onrender.com/api/Stage',
         "POST",
         JSON.stringify({
           nomContact: formState.inputs.nomContact.value,
-          courrielContact: formState.inputs.description.value,
-          entreprise: formState.inputs.address.value,
+          courrielContact: formState.inputs.courrielContact.value,
+          telephoneContact: formState.inputs.telephoneContact.value,
+          entreprise: formState.inputs.entreprise.value,
           adresse: formState.inputs.adresse.value,
           type: formState.inputs.type.value,
-          nombrePostes: formState.inputs.type.value,
+          nombrePostes: formState.inputs.nombrePostes.value,
           description: formState.inputs.description.value,
         }),
         {
@@ -98,12 +103,12 @@ const NewStage = () => {
         {isFormVisible ? "Masquer le formulaire" : "Afficher le formulaire"}
       </Button>
 
-      <StageList />
+
 
       {isFormVisible && (
             <form className="stage-form" onSubmit={stageSubmitHandler}>
               <Input
-                id="contact"
+                id="nomContact"
                 element="input"
                 type="text"
                 label="Nom personne contact"
@@ -112,7 +117,7 @@ const NewStage = () => {
                 onInput={inputHandler}
               />
               <Input
-                id="courriel"
+                id="courrielContact"
                 element="input"
                 type="email"
                 label="Courriel personne contact"
@@ -121,7 +126,7 @@ const NewStage = () => {
                 onInput={inputHandler}
               />
               <Input
-                id="telephone"
+                id="telephoneContact"
                 element="input"
                 type="tel"
                 label="Numéro de téléphone de la personne contact"
@@ -183,6 +188,7 @@ const NewStage = () => {
               <Button type="submit">Ajouter stage</Button>
             </form>
       )}
+            <StageList />
     </React.Fragment>
   );
 };

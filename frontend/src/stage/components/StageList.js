@@ -9,31 +9,15 @@ const StageList = props => {
   const [stages, setStages] = useState([]);
 
   useEffect(() => {
-    fetch('https://projetstages.onrender.com/api/stage/') // Remplacez par votre URL d'API
+    fetch('https://projetstages.onrender.com/api/Stage')
       .then(response => response.json())
-      .then(data => setStages(data));
+      .then(data => {
+        console.log(data); // Pour vérifier ce que vous obtenez de l'API
+        setStages(data.stages); // Récupérer les étudiants du tableau 'etudiants'
+      })
+      .catch(error => console.error(error));
   }, []);
 
-  const URL = "https://projetstages.onrender.com/api/stage/"
-  console.log(URL);
-  useEffect(() => {
-    const fetchStages = async () => {
-      try {
-        const response = await fetch(URL);
-        const responseData = await response.json();
-        
-        if (!response.ok) {
-          throw new Error(responseData.message);
-        }
-        
-        setStages(responseData.stages);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    
-    fetchStages();
-  }, []);
 
   if (stages.length === 0) {
     return (
@@ -52,12 +36,12 @@ const StageList = props => {
         <StageItem
           key={stage.id}
           id={stage.id}
-          image={stage.image}
-          title={stage.titre}
+          nomContact={stage.nomContact}
+          courrielContact={stage.courrielContact}
+          entreprise={stage.entreprise}
+          type={stage.type}
+          nbPostesDisponible={stage.nbPostesDisponible}
           description={stage.description}
-          address={stage.address}
-          creatorId={stage.createur}
-          coordinates={stage.location}
         />
       ))}
     </ul>

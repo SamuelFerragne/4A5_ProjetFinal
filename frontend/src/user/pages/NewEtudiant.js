@@ -83,7 +83,7 @@ const NewEtudiant = () => {
         {isFormVisible ? "Masquer le formulaire" : "Afficher le formulaire"}
       </Button>
 
-      <EtudiantList />
+
 
       {isFormVisible && (
             <form className="stage-form" onSubmit={etudiantSubmitHandler}>
@@ -123,7 +123,9 @@ const NewEtudiant = () => {
               />
               <Button type="submit">Ajouter Etudiant</Button>
             </form>
+            
       )}
+            <EtudiantList />
     </React.Fragment>
   );
 };
