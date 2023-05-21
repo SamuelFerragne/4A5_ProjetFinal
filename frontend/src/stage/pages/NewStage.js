@@ -75,8 +75,9 @@ const NewStage = () => {
       entreprise: formState.inputs.entreprise.value,
       adresse: formState.inputs.adresse.value,
       type: formState.inputs.type.value,
-      nombrePostes: formState.inputs.nombrePostes.value,
+      nbPostesDisponible: formState.inputs.nombrePostes.value,
       description: formState.inputs.description.value,
+      remuneration: formState.inputs.remuneration.value
     });
 
     console.log(dataToSend);
