@@ -24,13 +24,16 @@ const getStages = async (requete, reponse, next) => {
   try {
     stages = await Stage.find();
   } catch (err) {
-    return next(new HttpErreur("Erreur lors de la récupération des stages", 500));
+    return next(
+      new HttpErreur("Erreur lors de la récupération des stages", 500)
+    );
   }
   if (!stages) {
     return next(new HttpErreur("Aucun stage trouvé", 404));
   }
-  reponse.json({ stages: stages.map(stage => stage.toObject({ getters: true })) });
-
+  reponse.json({
+    stages: stages.map((stage) => stage.toObject({ getters: true })),
+  });
 };
 
 const creerStage = async (requete, reponse, next) => {
