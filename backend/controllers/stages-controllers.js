@@ -19,6 +19,20 @@ const getStageById = async (requete, reponse, next) => {
   reponse.json({ stage: stage.toObject({ getters: true }) });
 };
 
+const getStages = async (requete, reponse, next) => {
+  let stages;
+  try {
+    stages = await Stage.find();
+  } catch (err) {
+    return next(new HttpErreur("Erreur lors de la récupération des stages", 500));
+  }
+  if (!stages) {
+    return next(new HttpErreur("Aucun stage trouvé", 404));
+  }
+  reponse.json({ stages: stages.map(stage => stage.toObject({ getters: true })) });
+
+};
+
 const creerStage = async (requete, reponse, next) => {
   const {
     nomContact,
@@ -74,3 +88,4 @@ const supprimerStage = async (requete, reponse, next) => {
 exports.creerStage = creerStage;
 exports.getStageById = getStageById;
 exports.supprimerStage = supprimerStage;
+exports.getStages = getStages;
