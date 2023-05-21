@@ -12,6 +12,8 @@ import DeroulementStagiaire from './deroulement-stagiaire/pages/DeroulementStagi
 import Faq from './faq/pages/Faq';
 import Profil from './profil/pages/Profil';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
+import NewStage from './stage/pages/NewStage'
+import NewEtudiant from './user/pages/NewEtudiant';
 import { AuthContext } from './shared/context/auth-context';
 
 const App = () => {
@@ -71,6 +73,12 @@ const App = () => {
           </Route>
           <Route path="/profil" exact>
             <Profil/>
+          </Route>
+          <Route path="/stage" exact>
+            <NewStage/>
+          </Route>
+          <Route path="/etudiant" exact>
+            <NewEtudiant/>
           </Route>
           <Redirect to="/" />
         </Switch>

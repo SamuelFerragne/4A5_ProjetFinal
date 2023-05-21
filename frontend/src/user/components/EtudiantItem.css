@@ -1,0 +1,49 @@
+.etudiant-item {
+  margin: 1rem;
+  width: calc(45% - 2rem);
+  min-width: 17.5rem;
+}
+
+.etudiant-item a {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  padding: 1rem;
+  color: white;
+  background: #292929;
+}
+
+.etudiant-item a:hover,
+.etudiant-item a:active {
+  background: #ffd900;
+}
+
+.etudiant-item__content {
+  padding: 0;
+}
+
+.etudiant-item__image {
+  width: 4rem;
+  height: 4rem;
+  margin-right: 1rem;
+}
+
+.etudiant-item__info h2 {
+  font-size: 1.5rem;
+  margin: 0 0 0.5rem 0;
+  font-weight: normal;
+  color: #ffd900;
+}
+
+.etudiant-item:hover h2,
+.etudiant-item:active h2,
+.etudiant-item:hover h3,
+.etudiant-item:active h3 {
+  color: #292929;
+}
+
+.etudiant-item__info h3 {
+  margin: 0;
+}
