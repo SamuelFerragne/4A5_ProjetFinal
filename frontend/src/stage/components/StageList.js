@@ -12,7 +12,7 @@ const StageList = props => {
     fetch('https://projetstages.onrender.com/api/Stage')
       .then(response => response.json())
       .then(data => {
-        console.log(data); // Pour vérifier ce que vous obtenez de l'API
+        //console.log(data); // Pour vérifier ce que vous obtenez de l'API
         setStages(data.stages); // Récupérer les étudiants du tableau 'etudiants'
       })
       .catch(error => console.error(error));

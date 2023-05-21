@@ -66,24 +66,26 @@ const NewStage = () => {
 
   const stageSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log(formState.inputs); // send this to the backend!
-
     setFormVisible(false);
+
+    const dataToSend = JSON.stringify({
+      nomContact: formState.inputs.nomContact.value,
+      courrielContact: formState.inputs.courrielContact.value,
+      telephoneContact: formState.inputs.telephoneContact.value,
+      entreprise: formState.inputs.entreprise.value,
+      adresse: formState.inputs.adresse.value,
+      type: formState.inputs.type.value,
+      nombrePostes: formState.inputs.nombrePostes.value,
+      description: formState.inputs.description.value,
+    });
+
+    console.log(dataToSend);
 
     try {
       const reponseData = await sendRequest(
         'https://projetstages.onrender.com/api/Stage',
         "POST",
-        JSON.stringify({
-          nomContact: formState.inputs.nomContact.value,
-          courrielContact: formState.inputs.courrielContact.value,
-          telephoneContact: formState.inputs.telephoneContact.value,
-          entreprise: formState.inputs.entreprise.value,
-          adresse: formState.inputs.adresse.value,
-          type: formState.inputs.type.value,
-          nombrePostes: formState.inputs.nombrePostes.value,
-          description: formState.inputs.description.value,
-        }),
+        dataToSend,
         {
           "Content-Type": "application/json",
         }

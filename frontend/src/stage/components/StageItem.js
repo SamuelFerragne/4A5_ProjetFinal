@@ -7,7 +7,7 @@ import './StageItem.css';
 const StageItem = props => {
 
 
-  console.log(props);
+  //console.log(props);
   return (
     <React.Fragment>
       <div className='stage-item__actions'>
