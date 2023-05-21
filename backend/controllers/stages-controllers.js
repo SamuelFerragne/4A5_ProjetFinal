@@ -46,6 +46,7 @@ const creerStage = async (requete, reponse, next) => {
     type,
     nbPostesDisponible,
     description,
+    remuneration,
   } = requete.body;
   const nouveauStage = new Stage({
     nomContact,
@@ -56,6 +57,7 @@ const creerStage = async (requete, reponse, next) => {
     type,
     nbPostesDisponible,
     description,
+    remuneration,
   });
 
   try {
