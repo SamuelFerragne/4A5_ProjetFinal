@@ -54,22 +54,26 @@ const NewEtudiant = () => {
 
     setFormVisible(false);
 
+    const dataToSend = JSON.stringify({
+      DA: formState.inputs.DA.value,
+      nom: formState.inputs.nom.value,
+      courriel: formState.inputs.courriel.value,
+      profil: formState.inputs.profil.value
+    });
+
+    console.log(dataToSend);
+
     try {
       const reponseData = await sendRequest(
-        "https://projetstages.onrender.com/api/Stage/",
+        "https://projetstages.onrender.com/api/etudiant/",
         "POST",
-        JSON.stringify({
-          DA: formState.inputs.DA.value,
-          nom: formState.inputs.nom.value,
-          courriel: formState.inputs.courriel.value,
-          profil: formState.inputs.profil.value
-        }),
+        dataToSend,
         {
           "Content-Type": "application/json",
         }
       );
 
-      console.log(reponseData);
+      //console.log(reponseData);
       history.push("/");
     } catch (err) {
       console.log(err);
@@ -86,7 +90,7 @@ const NewEtudiant = () => {
 
 
       {isFormVisible && (
-            <form className="stage-form" onSubmit={etudiantSubmitHandler}>
+            <form className="etudiant-form" onSubmit={etudiantSubmitHandler}>
               <Input
                 id="DA"
                 element="input"
