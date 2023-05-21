@@ -14,7 +14,7 @@ const stageSchema = new Schema({
   etudiants: [
     { type: mongoose.Types.ObjectId, required: true, ref: "Etudiant" },
   ],
-  remuneration,
+  remuneration: { type: String, required: true },
 });
 
 module.exports = mongoose.model("Stage", stageSchema);
