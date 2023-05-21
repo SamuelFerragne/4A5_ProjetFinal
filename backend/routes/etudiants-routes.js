@@ -5,6 +5,8 @@ const router = express.Router();
 
 router.get("/:etudiantId", controllerEtudiant.getEtudiantById);
 
+router.get("/", controllerEtudiant.getEtudiants);
+
 router.post("/", controllerEtudiant.creerEtudiant);
 
 router.patch("/:etudiantId", controllerEtudiant.updateEtudiant);
