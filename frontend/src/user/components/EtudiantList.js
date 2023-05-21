@@ -1,33 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-import UserItem from './UserItem';
+import EtudiantItem from './EtudiantItem';
 import Card from '../../shared/components/UIElements/Card';
-import './UsersList.css';
+import './EtudiantList.css';
 
-const UsersList = props => {
-  if (props.items.length === 0) {
+const EtudiantsList = props => {
+  const [etudiants, setEtudiants] = useState([]);
+
+  useEffect(() => {
+    fetch('https://projetstages.onrender.com/api/stage/') // Remplacez par votre URL d'API
+      .then(response => response.json())
+      .then(data => setEtudiants(data));
+  }, []);
+
+  if (!etudiants || etudiants.length === 0) {
     return (
       <div className="center">
         <Card>
-          <h2>Aucun utilisateur trouvé</h2>
+          <h2>Aucun etudiant trouvé</h2>
         </Card>
       </div>
     );
   }
 
   return (
-    <ul className="users-list">
-      {props.items.map(user => (
-        <UserItem
-          key={user.id}
-          id={user.id}
-          image={user.image}
-          nom={user.nom}
-          places={user.places}
+    <ul className="etudiant-list">
+      {etudiants.map(etudiant => (
+        <EtudiantItem
+          key={etudiant.id}
+          DA={etudiant.DA}
+          nom={etudiant.nom}
+          courriel={etudiant.courriel}
+          profil={etudiant.profil}
         />
       ))}
     </ul>
   );
 };
 
-export default UsersList;
+export default EtudiantsList;

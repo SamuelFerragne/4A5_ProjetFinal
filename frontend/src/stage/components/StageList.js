@@ -8,6 +8,12 @@ import './StageList.css';
 const StageList = props => {
   const [stages, setStages] = useState([]);
 
+  useEffect(() => {
+    fetch('https://projetstages.onrender.com/api/stage/') // Remplacez par votre URL d'API
+      .then(response => response.json())
+      .then(data => setStages(data));
+  }, []);
+
   const URL = "https://projetstages.onrender.com/api/stage/"
   console.log(URL);
   useEffect(() => {

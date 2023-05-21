@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
-import StageList from "../components/StageList";
+import EtudiantList from "../components/EtudiantList";
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
 import Select from "../../shared/components/FormElements/Select";
@@ -15,9 +15,9 @@ import {
 import { useForm } from "../../shared/hooks/form-hook";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { AuthContext } from "../../shared/context/auth-context";
-import "./StageForm.css";
+import "./EtudiantForm.css";
 
-const NewStage = () => {
+const NewEtudiant = () => {
   const auth = useContext(AuthContext);
   const { error, sendRequest, clearError } = useHttpClient();
   const [isFormVisible, setFormVisible] = useState(false);
@@ -26,7 +26,11 @@ const NewStage = () => {
   };
   const [formState, inputHandler] = useForm(
     {
-      contact: {
+      DA: {
+        value: "",
+        isValid: false,
+      },
+      nom: {
         value: "",
         isValid: false,
       },
@@ -34,33 +38,17 @@ const NewStage = () => {
         value: "",
         isValid: false,
       },
-      entreprise: {
+      profil: {
         value: "",
         isValid: false,
-      },
-      adresse: {
-        value: "",
-        isValid: false,
-      },
-      type: {
-        value: "",
-        isValid: false,
-      },
-      nombrePostes: {
-        value: "",
-        isValid: false,
-      },
-      description: {
-        value: "",
-        isValid: false,
-      },
+      }
     },
     false
   );
 
   const history = useHistory();
 
-  const stageSubmitHandler = async (event) => {
+  const etudiantSubmitHandler = async (event) => {
     event.preventDefault();
     console.log(formState.inputs); // send this to the backend!
 
@@ -68,16 +56,13 @@ const NewStage = () => {
 
     try {
       const reponseData = await sendRequest(
-        process.env.REACT_APP_BACKEND_URL + "/stages",
+        process.env.REACT_APP_BACKEND_URL + "/etudiants",
         "POST",
         JSON.stringify({
-          nomContact: formState.inputs.nomContact.value,
-          courrielContact: formState.inputs.description.value,
-          entreprise: formState.inputs.address.value,
-          adresse: formState.inputs.adresse.value,
-          type: formState.inputs.type.value,
-          nombrePostes: formState.inputs.type.value,
-          description: formState.inputs.description.value,
+          DA: formState.inputs.nomContact.value,
+          nom: formState.inputs.description.value,
+          courriel: formState.inputs.address.value,
+          profil: formState.inputs.adresse.value
         }),
         {
           "Content-Type": "application/json",
@@ -98,15 +83,24 @@ const NewStage = () => {
         {isFormVisible ? "Masquer le formulaire" : "Afficher le formulaire"}
       </Button>
 
-      <StageList />
+      <EtudiantList />
 
       {isFormVisible && (
-            <form className="stage-form" onSubmit={stageSubmitHandler}>
+            <form className="stage-form" onSubmit={etudiantSubmitHandler}>
               <Input
-                id="contact"
+                id="DA"
                 element="input"
                 type="text"
-                label="Nom personne contact"
+                label="Numéro de DA"
+                validators={[VALIDATOR_REQUIRE()]}
+                errorText="Entrez un matricule valide."
+                onInput={inputHandler}
+              />
+              <Input
+                id="nom"
+                element="input"
+                type="text"
+                label="Nom etudiant"
                 validators={[VALIDATOR_REQUIRE()]}
                 errorText="Entrez un nom valide."
                 onInput={inputHandler}
@@ -115,76 +109,23 @@ const NewStage = () => {
                 id="courriel"
                 element="input"
                 type="email"
-                label="Courriel personne contact"
+                label="Courriel de l'étudiant"
                 validators={[VALIDATOR_REQUIRE(), VALIDATOR_EMAIL()]}
                 errorText="Entrez un courriel valide."
                 onInput={inputHandler}
               />
-              <Input
-                id="telephone"
-                element="input"
-                type="tel"
-                label="Numéro de téléphone de la personne contact"
-                validators={[VALIDATOR_REQUIRE(), VALIDATOR_PHONE()]}
-                errorText="Entrez un numéro de téléphone valide."
-                onInput={inputHandler}
-              />
-              <Input
-                id="entreprise"
-                element="input"
-                type="text"
-                label="Nom de l'entreprise"
-                validators={[VALIDATOR_REQUIRE()]}
-                errorText="Entrez un nom valide."
-                onInput={inputHandler}
-              />
-              <Input
-                id="adresse"
-                element="input"
-                type="text"
-                label="Adresse de l’entreprise"
-                validators={[VALIDATOR_REQUIRE()]}
-                errorText="Entrez une adresse valide."
-                onInput={inputHandler}
-              />
               <Select
-                id="type"
-                label="Type de stage"
+                id="profil"
+                label="Profil de Sortie"
                 validators={[VALIDATOR_REQUIRE()]}
-                errorText="Veuillez sélectionner le type de stage."
+                errorText="Veuillez sélectionner le profil."
                 onInput={inputHandler}
               />
-              <Input
-                id="nombrePostes"
-                element="input"
-                type="number"
-                label="Nombre de postes disponibles"
-                validators={[VALIDATOR_REQUIRE(), VALIDATOR_NUMBER()]}
-                errorText="Entrez un nombre valide."
-                onInput={inputHandler}
-              />
-              <Input
-                id="description"
-                element="textarea"
-                label="Description du stage"
-                validators={[VALIDATOR_MINLENGTH(5)]}
-                errorText="Entrez une description valide (au moins 5 caractères)."
-                onInput={inputHandler}
-              />
-              <Input
-                id="remuneration"
-                element="input"
-                type="text"
-                label="Rémunération"
-                validators={[VALIDATOR_REQUIRE()]}
-                errorText="Entrez une rémunération valide."
-                onInput={inputHandler}
-              />
-              <Button type="submit">Ajouter stage</Button>
+              <Button type="submit">Ajouter Etudiant</Button>
             </form>
       )}
     </React.Fragment>
   );
 };
 
-export default NewStage;
+export default NewEtudiant;

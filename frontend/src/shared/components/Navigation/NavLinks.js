@@ -29,6 +29,9 @@ const NavLinks = props => {
       <li>
         <NavLink to="stage">Stage</NavLink>
       </li>
+      <li>
+        <NavLink to="etudiant">Etudiants</NavLink>
+      </li>
     </ul>
   );
 };
