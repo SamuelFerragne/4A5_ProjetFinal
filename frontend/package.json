@@ -24,8 +24,13 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
+<<<<<<< HEAD
     "start": "react-scripts start",
     "build": "react-scripts build",
+=======
+    "start": "react-scripts --openssl-legacy-provider start",
+    "build": "react-scripts --openssl-legacy-provider build start",
+>>>>>>> 7f5e00a78265a3d973626a2caf872ddb8a04c521
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
