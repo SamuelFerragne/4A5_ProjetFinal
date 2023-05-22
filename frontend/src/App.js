@@ -14,46 +14,8 @@ import Profil from './profil/pages/Profil';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
 import NewStage from './stage/pages/NewStage'
 import NewEtudiant from './user/pages/NewEtudiant';
-import { AuthContext } from './shared/context/auth-context';
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userId, setUserId] = useState(false);
-
-  const login = useCallback((userId) => {
-    setIsLoggedIn(true);
-    setUserId(userId);
-  }, []);
-
-  const logout = useCallback(() => {
-    setIsLoggedIn(false);
-    setUserId(null);
-  }, []);
-
-  let routes;
-
-  /*if (isLoggedIn) {
-    routes = (
-      <Switch>
-        <Route path="/" exact>
-          <Accueil />
-        </Route>
-        <Route path="/:userId/places" exact>
-          <DeroulementEnseignant />
-        </Route>
-        <Route path="/places/new" exact>
-          <DeroulementStagiaire />
-        </Route>
-        <Route path="/places/:placeId">
-          <Faq />
-        </Route>
-        <Route path="/places/:placeId">
-          <Faq />
-        </Route>
-        <Redirect to="/" />
-      </Switch>
-    );
-   else {*/
    return (
     <Router>
       <MainNavigation />
@@ -86,16 +48,6 @@ const App = () => {
     </Router>
   );
 
-  /*return (
-    <AuthContext.Provider
-      value={{ isLoggedIn: isLoggedIn, userId:userId, login: login, logout: logout }}
-    >
-      <Router>
-        <MainNavigation />
-        <main>{routes}</main>
-      </Router>
-    </AuthContext.Provider>
-  );*/
 };
 
 export default App;

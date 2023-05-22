@@ -1,13 +1,8 @@
 import React, { useState, useContext } from 'react';
-
-import { AuthContext } from '../../shared/context/auth-context';
-import { useHttpClient } from '../../shared/hooks/http-hook';
 import './StageItem.css';
 
 const StageItem = props => {
 
-
-  //console.log(props);
   return (
     <React.Fragment>
       <div className='stage-item__actions'>
