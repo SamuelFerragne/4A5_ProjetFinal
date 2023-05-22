@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 
 import Card from '../../shared/components/UIElements/Card';
 import Modal from '../../shared/components/UIElements/Modal';
@@ -15,20 +14,20 @@ const EtudiantItem = props => {
     fetch('https://projetstages.onrender.com/api/Stage')
       .then(response => response.json())
       .then(data => {
-        setStages(data.stages); // Store the stages in state
+        setStages(data.stages);
       })
       .catch(error => console.error(error));
   }, []);
 
   const openModalHandler = () => {
     setShowModal(true);
-    setSelectedEtudiant(props.nom);  // Set selected student
+    setSelectedEtudiant(props.nom);
   };
 
   const closeModalHandler = () => {
     setShowModal(false);
-    setSelectedEtudiant(null);  // Reset selected student
-    setSelectedStage(null);  // Reset selected stage
+    setSelectedEtudiant(null);
+    setSelectedStage(null);
   };
 
   const confirmHandler = () => {
@@ -75,7 +74,6 @@ const EtudiantItem = props => {
           </React.Fragment>
         }
       >
-        {/* Put the content of the modal here if needed */}
       </Modal>
       <Card className="etudiant-item__content">
         <div className="etudiant-item__info" onClick={openModalHandler}>

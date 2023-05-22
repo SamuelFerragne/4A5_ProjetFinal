@@ -7,18 +7,13 @@ import Select from "../../shared/components/FormElements/Select";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import {
   VALIDATOR_REQUIRE,
-  VALIDATOR_MINLENGTH,
-  VALIDATOR_EMAIL,
-  VALIDATOR_PHONE,
-  VALIDATOR_NUMBER,
+  VALIDATOR_EMAIL
 } from "../../shared/util/validators";
 import { useForm } from "../../shared/hooks/form-hook";
 import { useHttpClient } from "../../shared/hooks/http-hook";
-import { AuthContext } from "../../shared/context/auth-context";
 import "./EtudiantForm.css";
 
 const NewEtudiant = () => {
-  const auth = useContext(AuthContext);
   const { error, sendRequest, clearError } = useHttpClient();
   const [isFormVisible, setFormVisible] = useState(false);
   const toggleFormVisibility = () => {
@@ -50,7 +45,6 @@ const NewEtudiant = () => {
 
   const etudiantSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log(formState.inputs); // send this to the backend!
 
     setFormVisible(false);
 
@@ -61,7 +55,6 @@ const NewEtudiant = () => {
       profil: formState.inputs.profil.value
     });
 
-    console.log(dataToSend);
 
     try {
       const reponseData = await sendRequest(
@@ -73,7 +66,6 @@ const NewEtudiant = () => {
         }
       );
 
-      //console.log(reponseData);
       history.push("/");
     } catch (err) {
       console.log(err);

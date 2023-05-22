@@ -12,8 +12,8 @@ const EtudiantsList = props => {
     fetch('https://projetstages.onrender.com/api/Etudiant')
       .then(response => response.json())
       .then(data => {
-        console.log(data); // Pour vérifier ce que vous obtenez de l'API
-        setEtudiants(data.etudiants); // Récupérer les étudiants du tableau 'etudiants'
+        console.log(data);
+        setEtudiants(data.etudiants);
       })
       .catch(error => console.error(error));
   }, []);
