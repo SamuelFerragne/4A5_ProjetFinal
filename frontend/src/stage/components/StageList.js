@@ -7,6 +7,7 @@ import './StageList.css';
 
 const StageList = props => {
   const [stages, setStages] = useState([]);
+  let filteredStages = props.stages;
 
   useEffect(() => {
     fetch('https://projetstages.onrender.com/api/Stage')
@@ -18,6 +19,9 @@ const StageList = props => {
       .catch(error => console.error(error));
   }, []);
 
+  filteredStages = props.selectedStageType === "Tous"
+  ? stages
+  : stages.filter(stage => stage.type === props.selectedStageType);
 
   if (stages.length === 0) {
     return (
@@ -32,7 +36,7 @@ const StageList = props => {
 
   return (
     <ul className="stage-list">
-      {stages.map(stage => (
+      {filteredStages.map(stage => (
         <StageItem
           key={stage.id}
           id={stage.id}

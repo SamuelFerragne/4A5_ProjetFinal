@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import StageList from "../components/StageList";
 import Input from "../../shared/components/FormElements/Input";
@@ -21,6 +21,30 @@ const NewStage = () => {
   const auth = useContext(AuthContext);
   const { error, sendRequest, clearError } = useHttpClient();
   const [isFormVisible, setFormVisible] = useState(false);
+  const [stages, setStages] = useState([]);
+  const [selectedStageType, setSelectedStageType] = useState("Tous");
+
+  const handleStageTypeChange = (id, value, isValid) => {
+    if (isValid) {
+      setSelectedStageType(value);
+    } else {
+      setSelectedStageType("Tous");
+    }
+  };
+
+  useEffect(() => {
+    fetch('https://projetstages.onrender.com/api/Stage')
+      .then(response => response.json())
+      .then(data => {
+        setStages(data.stages);
+      })
+      .catch(error => console.error(error));
+  }, []);
+
+  const filteredStages = selectedStageType === "Tous"
+  ? stages
+  : stages.filter(stage => stage.type === selectedStageType);
+
   const toggleFormVisibility = () => {
     setFormVisible((prevIsFormVisible) => !prevIsFormVisible);
   };
@@ -82,6 +106,7 @@ const NewStage = () => {
 
     console.log(dataToSend);
 
+
     try {
       const reponseData = await sendRequest(
         'https://projetstages.onrender.com/api/Stage',
@@ -106,7 +131,12 @@ const NewStage = () => {
         {isFormVisible ? "Masquer le formulaire" : "Afficher le formulaire"}
       </Button>
 
-
+      <Select
+        id="stageType"
+        label="Type de stage à afficher"
+        onInput={handleStageTypeChange}
+        value={selectedStageType}
+      />
 
       {isFormVisible && (
             <form className="stage-form" onSubmit={stageSubmitHandler}>
@@ -191,7 +221,7 @@ const NewStage = () => {
               <Button type="submit">Ajouter stage</Button>
             </form>
       )}
-            <StageList />
+            <StageList selectedStageType={selectedStageType}/>
     </React.Fragment>
   );
 };
