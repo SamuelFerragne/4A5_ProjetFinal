@@ -7,18 +7,13 @@ import Select from "../../shared/components/FormElements/Select";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import {
   VALIDATOR_REQUIRE,
-  VALIDATOR_MINLENGTH,
-  VALIDATOR_EMAIL,
-  VALIDATOR_PHONE,
-  VALIDATOR_NUMBER,
+  VALIDATOR_EMAIL
 } from "../../shared/util/validators";
 import { useForm } from "../../shared/hooks/form-hook";
 import { useHttpClient } from "../../shared/hooks/http-hook";
-import { AuthContext } from "../../shared/context/auth-context";
 import "./EtudiantForm.css";
 
 const NewEtudiant = () => {
-  const auth = useContext(AuthContext);
   const { error, sendRequest, clearError } = useHttpClient();
   const [isFormVisible, setFormVisible] = useState(false);
   const toggleFormVisibility = () => {
@@ -50,26 +45,27 @@ const NewEtudiant = () => {
 
   const etudiantSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log(formState.inputs); // send this to the backend!
 
     setFormVisible(false);
 
+    const dataToSend = JSON.stringify({
+      DA: formState.inputs.DA.value,
+      nom: formState.inputs.nom.value,
+      courriel: formState.inputs.courriel.value,
+      profil: formState.inputs.profil.value
+    });
+
+
     try {
       const reponseData = await sendRequest(
-        "https://projetstages.onrender.com/api/Stage/",
+        "https://projetstages.onrender.com/api/etudiant/",
         "POST",
-        JSON.stringify({
-          DA: formState.inputs.DA.value,
-          nom: formState.inputs.nom.value,
-          courriel: formState.inputs.courriel.value,
-          profil: formState.inputs.profil.value
-        }),
+        dataToSend,
         {
           "Content-Type": "application/json",
         }
       );
 
-      console.log(reponseData);
       history.push("/");
     } catch (err) {
       console.log(err);
@@ -86,7 +82,7 @@ const NewEtudiant = () => {
 
 
       {isFormVisible && (
-            <form className="stage-form" onSubmit={etudiantSubmitHandler}>
+            <form className="etudiant-form" onSubmit={etudiantSubmitHandler}>
               <Input
                 id="DA"
                 element="input"
